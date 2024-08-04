@@ -1,7 +1,8 @@
 {
-  "name": "ha-whatsapp-service",
+  "name": "@zhinea/whatsapp-core",
   "module": "src/index.ts",
   "type": "module",
+  "version": "1.0.0",
   "scripts": {
     "dev": "bun run --watch ./src/index.ts",
     "build": "bun build ./src/index.ts",
