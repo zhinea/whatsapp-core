@@ -13,13 +13,17 @@
 
     export class WhatsappInstance extends EventEmitter {
 
+        globalOptions: WhatsappContainerOptions;
+
         sockets: Map<string, WASocket>
 
         logger: P
 
         constructor(options: WhatsappContainerOptions = {}) {
+            super();
             this.sockets = new Map()
 
+            this.globalOptions = options;
             this.logger = logger.child({}, options?.logger)
         }
 
@@ -33,7 +37,7 @@
             const sock = makeWASocket({
                 version,
                 logger,
-                printQRInTerminal: options?.printQRInTerminal || true,
+                printQRInTerminal: options?.printQRInTerminal || this.globalOptions?.printQRInTerminal || false,
                 mobile: false,
                 auth: {
                     creds: state.creds,
@@ -67,7 +71,13 @@
                                 this.emit('logout', {
                                     instanceId
                                 })
+                            }
 
+                            if(update?.qr){
+                               this.emit('qrcode', {
+                                   instanceId,
+                                   qr: update!.qr
+                               })
                             }
                         }
 
@@ -77,6 +87,10 @@
                     // credentials updated -- save them
                     if(events['creds.update']) {
                         await saveCreds()
+                    }
+
+                    if(events['messages.upsert']){
+                        this.emit('messages', events["messages.upsert"])
                     }
                 }
             )

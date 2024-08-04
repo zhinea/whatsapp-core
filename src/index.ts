@@ -8,3 +8,7 @@ export const createService = async (options: CreateServiceOptions): Promise<Retu
 
     return new WhatsappInstance(options?.whatsapp);
 }
+
+export * from './types/events.d'
+export * from './types/whatsapp'
+export * from './types/common.d'

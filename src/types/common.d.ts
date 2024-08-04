@@ -11,11 +11,11 @@ export type DatabaseOptions = {
 
 export type WhatsappContainerOptions = {
     logger?: ChildLoggerOptions;
+    printQRInTerminal?: boolean;
 }
 
 export type CreateServiceOptions = {
     database: DatabaseOptions,
     whatsapp?: WhatsappContainerOptions
 }
-
 

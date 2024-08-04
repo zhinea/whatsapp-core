@@ -2,6 +2,7 @@
   "name": "@zhinea/whatsapp-core",
   "module": "src/index.ts",
   "type": "module",
+  "private": false,
   "version": "1.0.0",
   "scripts": {
     "dev": "bun run --watch ./src/index.ts",
